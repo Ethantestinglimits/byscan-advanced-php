@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Hello StatisticsController!{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Nom', 'Notes', 'link'],
+                {% for manga in mangas %}
+                    ['{{ manga.name }}', {{ manga.rating }}, '{{ path('details', {id: manga.id}) }}'],
+                {% endfor %}
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1]);
+
+
+            var options = {
+                title: 'Stats des mangas'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(view, options);
+
+            var selectHandler = function (e) {
+                window.location = data.getValue(chart.getSelection()[0]['row'], 2);
+            }
+
+            // Add our selection handler.
+            google.visualization.events.addListener(chart, 'select', selectHandler);
+
+
+        }
+    </script>
+
+
+{% endblock %}
+
+{% block body %}
+
+{% include 'nav.html.twig' %}
+
+    <div class="stats-container">
+        <div class="example-wrapper">
+            <div id="piechart" style="width: 900px; height: 500px;"></div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block body_classes %}body-white{% endblock %}

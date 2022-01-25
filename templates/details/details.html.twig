@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% include 'nav.html.twig' %}
+
+    <div class="details-manga">
+        <div class="d-left">
+            <img class="d-img" src="{{ manga.cover }}" alt="cover"/>
+        </div>
+        <div class="d-right">
+            <h1>{{ manga.name }}</h1>
+            <h1>{{ manga.japName }}</h1>
+            
+            <p>Note nautiljon: {{ manga.Rating }}</p>
+            <p>Nombre de vote nautiljon: {{ manga.Votes }}</p>
+            <div>
+                <h1>Synopsis</h1>
+                <p>{{ manga.description }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-container" style="transform: translate(-50%, 160%);">
+        {{ form(delete) }}
+    </div>
+    
+
+{% endblock %}

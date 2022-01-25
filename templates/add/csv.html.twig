@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ADD BY CSV{% endblock %}
+
+{% block body %}
+
+    {% include 'nav.html.twig' %}
+
+    <div class="form-container">
+
+        <h1>Ajout de manga par fichier CSV</h1>
+        {{ form(form) }}
+        <a href="/assets/template.csv">Template / Exemple</a>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% include 'nav.html.twig' %}
+    <div class="h-left">
+        <div class="home-top">
+            <h3 class="home-titre">Manga du jour</h3>
+            <div class="home-volume">
+                {% for manga in mangas %}
+                <div class="home-manga">
+                    
+                    <a class="hm-link" href="{{ path('details', { 'id': manga.id }) }}"></a>
+                    <a class="hm-image" href="{{ path('details', { 'id': manga.id }) }}">
+                        <img class data src="{{ manga.cover }}" alt="cover"/>
+                    </a>
+                    <div clas="hm-info">
+                        <a class="hmi-titre"><span>{{ manga.name }}</span></a>
+                        <br>
+                        <a class="hmi-titre"><span class="jap">{{ manga.japName }}</span></a>
+                        <div class="hmi-rating">{{ manga.rating }}/10</div>
+                    </div>
+                            
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
