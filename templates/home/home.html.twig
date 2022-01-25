@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block body %}
 
     {% include 'nav.html.twig' %}
     <div class="h-left">
         <div class="home-top">
-            <h3 class="home-titre">Manga du jour</h3>
-            <div class="home-volume">
-                {% for manga in mangas %}
+            <div class="top-volume">
+                <div class="volume-title"><h3 class="home-titre">Manga du jour</h3></div>
+                <div>
+                    <input id="bname" type="submit" name="button" value="Trier par nom"/>     
+                    <input id="bscore" type="submit" name="button" value="Trier par score"/>  
+                </div>
+            </div>
+
+            <div id="name" class="home-volume hide">
+                {% for manga in mangas|sort((a, b) => a.name <=> b.name) %}
                 <div class="home-manga">
                     
                     <a class="hm-link" href="{{ path('details', { 'id': manga.id }) }}"></a>
@@ -24,7 +33,44 @@
                 </div>
                 {% endfor %}
             </div>
+
+            <div class="home-volume">
+                {% for manga in mangas %}
+                <div id="score" class="home-manga">
+                    
+                    <a class="hm-link" href="{{ path('details', { 'id': manga.id }) }}"></a>
+                    <a class="hm-image" href="{{ path('details', { 'id': manga.id }) }}">
+                        <img class data src="{{ manga.cover }}" alt="cover"/>
+                    </a>
+                    <div clas="hm-info">
+                        <a class="hmi-titre" href="{{ path('details', { 'id': manga.id }) }}"><span>{{ manga.name }}</span></a>
+                        <br>
+                        <a class="hmi-titre" href="{{ path('details', { 'id': manga.id }) }}"><span class="jap">{{ manga.japName }}</span></a>
+                        <div class="hmi-rating">{{ manga.rating }}/10</div>
+                    </div>
+                            
+                </div>
+                
+                {% endfor %}
+            </div>
+
         </div>
     </div>
+
+
+    <script type="text/javascript">
+
+
+    document.getElementById('bname').onclick = function() {
+        document.getElementById('name').classList.remove('hide');
+        document.getElementById('score').classList.add('hide');
+    };
+
+    document.getElementById('bscore').onclick = function() {
+        document.getElementById('name').classList.add('hide');
+        document.getElementById('score').classList.remove('hide');
+    } 
+
+    </script>
 
 {% endblock %}
