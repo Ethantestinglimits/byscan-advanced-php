@@ -34,9 +34,9 @@
                 {% endfor %}
             </div>
 
-            <div class="home-volume">
+            <div id="score" class="home-volume">
                 {% for manga in mangas %}
-                <div id="score" class="home-manga">
+                <div class="home-manga">
                     
                     <a class="hm-link" href="{{ path('details', { 'id': manga.id }) }}"></a>
                     <a class="hm-image" href="{{ path('details', { 'id': manga.id }) }}">
